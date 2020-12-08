@@ -20,21 +20,20 @@ build_v2() {
   cd main
   if [[ $GOARCH == "mips" || $GOARCH == "mipsle" ]];then
     UPX=upx
-    env CGO_ENABLED=0 go build -o $TMP/xray -ldflags "-s -w"
-    env CGO_ENABLED=0 GOMIPS=softfloat go build -o $TMP/xray_softfloat -ldflags "-s -w"
+    env CGO_ENABLED=0 go build -o $TMP/xray -trimpath -ldflags "-s -w -buildid=" ./main
+    env CGO_ENABLED=0 GOMIPS=softfloat go build -o $TMP/xray_softfloat -trimpath -ldflags "-s -w -buildid=" ./main
   elif [[ $GOOS == "windows" ]];then
-    env CGO_ENABLED=0 go build -o $TMP/xray.exe -ldflags "-s -w"
-    env CGO_ENABLED=0 go build -o $TMP/wxray.exe -ldflags "-s -w -H windowsgui"
+    env CGO_ENABLED=0 go build -o $TMP/xray.exe -trimpath -ldflags "-s -w -buildid=" ./main
   elif [[ $GOARCH == "armv5" ]];then
-    env CGO_ENABLED=0 GOARCH=arm GOARM=5 go build -o $TMP/xray -ldflags "-s -w"
+    env CGO_ENABLED=0 GOARCH=arm GOARM=5 go build -o $TMP/xray -trimpath -ldflags "-s -w -buildid=" ./main
   elif [[ $GOARCH == "armv6" ]];then
-    env CGO_ENABLED=0 GOARCH=arm GOARM=6 go build -o $TMP/xray -ldflags "-s -w"
+    env CGO_ENABLED=0 GOARCH=arm GOARM=6 go build -o $TMP/xray -trimpath -ldflags "-s -w -buildid=" ./main
   elif [[ $GOARCH == "armv7" ]];then
-    env CGO_ENABLED=0 GOARCH=arm GOARM=7 go build -o $TMP/xray -ldflags "-s -w"
+    env CGO_ENABLED=0 GOARCH=arm GOARM=7 go build -o $TMP/xray -trimpath -ldflags "-s -w -buildid=" ./main
   elif [[ $GOARCH == "arm64" ]];then
-    env CGO_ENABLED=0 GOARCH=arm64 go build -o $TMP/xray -ldflags "-s -w"
+    env CGO_ENABLED=0 GOARCH=arm64 go build -o $TMP/xray -trimpath -ldflags "-s -w -buildid=" ./main
   else
-    env CGO_ENABLED=0 go build -o $TMP/xray -ldflags "-s -w"
+    env CGO_ENABLED=0 go build -o $TMP/xray -trimpath -ldflags "-s -w -buildid=" ./main
   fi
 
   cd ..
