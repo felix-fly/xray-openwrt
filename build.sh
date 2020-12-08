@@ -12,7 +12,7 @@ cleanup () { rm -rf $TMP; }
 trap cleanup INT TERM ERR
 
 build_v2() {
-  cd $BASE/xray-core
+  cd $BASE/Xray-core
   echo ">>> Update source code name ..."
   sed -i "s/^[ \t]\+codename.\+$/\tcodename = \"${CODENAME}\"/;s/^[ \t]\+build.\+$/\tbuild = \"${BUILDNAME}\"/;" core.go
 
