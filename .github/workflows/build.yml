@@ -1,0 +1,62 @@
+name: build
+
+on:
+  push:
+    branches: [master]
+  #release:
+    #types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: init
+        run: |
+          # upx 3.95 for mips wait for 4.0 fix https://github.com/upx/upx/issues/342
+          sudo apt-get update
+          sudo apt-get install -y upx
+          sudo rm -rf /usr/bin/go*
+          sudo rm -rf /usr/local/go
+          wget https://dl.google.com/go/go1.15.4.linux-amd64.tar.gz -O go.tar.gz
+          sudo tar -C /usr/local -xzf go.tar.gz
+          wget https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz
+          tar xf upx-3.96-amd64_linux.tar.xz
+          mv upx-3.96-amd64_linux/upx .
+          rm -rf upx-3.96-amd64_linux*
+      - name: build
+        run: |
+          mkdir tmp
+          mkdir bin
+          # Do not use "--depth=1" due to tags
+          git clone https://github.com/XTLS/Xray-core.git
+          cd Xray-core
+          git checkout tags/v1.1.2
+          cd ..
+          wget https://raw.githubusercontent.com/felix-fly/xray-openwrt/master/build.sh
+          chmod +x ./build.sh
+          ./build.sh darwin amd64
+          ./build.sh dragonfly amd64
+          ./build.sh freebsd 386
+          ./build.sh freebsd amd64
+          ./build.sh linux 386
+          ./build.sh linux amd64
+          ./build.sh linux armv5
+          ./build.sh linux armv6
+          ./build.sh linux armv7
+          ./build.sh linux arm64
+          ./build.sh linux mips
+          ./build.sh linux mipsle
+          ./build.sh linux mips64
+          ./build.sh linux mips64le
+          ./build.sh linux ppc64
+          ./build.sh linux ppc64le
+          ./build.sh linux s390x
+          ./build.sh openbsd 386
+          ./build.sh openbsd amd64
+          ./build.sh windows 386
+          ./build.sh windows amd64
+      - name: Upload artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: build
+          path: bin
