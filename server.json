@@ -1,0 +1,27 @@
+{
+  "log": {"loglevel": "none"},
+  "inbounds": [{
+    "port": 443,
+    "protocol": "vless",
+    "settings": {
+      "clients": [{
+        "flow": "xtls-rprx-direct",
+        "id": "YOUR_ID"
+      }],
+      "decryption": "none",
+      "fallbacks": [{"dest": 80}]
+    },
+    "streamSettings": {
+      "network": "tcp",
+      "security": "xtls",
+      "xtlsSettings": {
+        "alpn": ["h2"],
+        "certificates": [{
+          "certificateFile": "/home/ubuntu/.acme.sh/YOUR_DOMAIN/fullchain.cer",
+          "keyFile": "/home/ubuntu/.acme.sh/YOUR_DOMAIN/YOUR_DOMAIN.key"
+        }]
+      }
+    }
+  }],
+  "outbounds": [{"protocol": "freedom", "settings": {}}]
+}
