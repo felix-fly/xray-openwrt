@@ -1,11 +1,7 @@
 #!/usr/bin/env bash
 
-NOW=$(date '+%Y%m%d-%H%M%S')
 BASE=$(dirname $(readlink -f "$0"))
 TMP=$BASE/tmp
-
-CODENAME="user"
-BUILDNAME=$NOW
 UPX=$BASE/upx
 
 cleanup () { rm -rf $TMP; }
@@ -13,11 +9,7 @@ trap cleanup INT TERM ERR
 
 build_v2() {
   cd $BASE/Xray-core
-  echo ">>> Update source code name ..."
-  sed -i "s/^[ \t]\+codename.\+$/\tcodename = \"${CODENAME}\"/;s/^[ \t]\+build.\+$/\tbuild = \"${BUILDNAME}\"/;" core.go
-
   echo ">>> Compile xray ..."
-  cd main
   if [[ $GOARCH == "mips" || $GOARCH == "mipsle" ]];then
     UPX=upx
     env CGO_ENABLED=0 go build -o $TMP/xray -trimpath -ldflags "-s -w -buildid=" ./main
@@ -35,9 +27,6 @@ build_v2() {
   else
     env CGO_ENABLED=0 go build -o $TMP/xray -trimpath -ldflags "-s -w -buildid=" ./main
   fi
-
-  cd ..
-  git checkout -- core.go
 }
 
 packzip() {
