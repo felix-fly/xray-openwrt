@@ -1,8 +1,10 @@
 # xray-openwrt
 
-v2ray官方移除了xtls，xray独立发布，重点关注性能提升，需要的走起~~~
+v2ray官方移除了xtls，[xray](https://github.com/XTLS/Xray-core)独立发布，重点关注性能提升，需要的走起~~~
 
-* [openwrt中使用v2ray的简单流程](https://github.com/felix-fly/v2ray-openwrt)
+* [release下获取xray文件](./release)
+
+用法不再赘述，详细可参考之前的 **[openwrt中使用v2ray的简单流程](https://github.com/felix-fly/v2ray-openwrt)**
 
 参考配置文件：
 
