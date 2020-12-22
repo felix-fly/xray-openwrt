@@ -45,7 +45,8 @@ rm -f xray.tar.gz
 
 filesize=`ls -l xray | awk '{ print $5 }'`
 
-mv xray data/usr/bin/
+mkdir -p data/usr/bin
+mv xray data/usr/bin
 
 sed -i.bak "s/==SIZE==/$filesize/g" ./control/control
 rm control/control.bak
