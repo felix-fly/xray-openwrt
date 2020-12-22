@@ -37,7 +37,12 @@ mkdir tmp
 cp -r package/* tmp
 cd tmp
 
-wget https://github.com/felix-fly/xray-openwrt/releases/$version/download/xray-linux-$platform.tar.gz -O xray.tar.gz
+if [[ $version == "latest" ]]
+then
+  wget https://github.com/felix-fly/xray-openwrt/releases/latest/download/xray-linux-$platform.tar.gz -O xray.tar.gz
+else
+  wget https://github.com/felix-fly/xray-openwrt/releases/download/$version/xray-linux-$platform.tar.gz -O xray.tar.gz
+fi
 
 tar -xzvf xray.tar.gz
 if [[ $float == "float" ]]
