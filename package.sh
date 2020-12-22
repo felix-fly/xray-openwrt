@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 platform="$1"
 all=",386,amd64,armv5,armv6,armv7,arm64,mips,mipsle,mips64,mips64le,ppc64,ppc64le,s390x,"
