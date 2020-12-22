@@ -53,15 +53,15 @@ sed -i.bak "s/==SIZE==/$filesize/g" ./control/control
 rm control/control.bak
 
 cd control
-tar -zcf ../control.tar.gz *
+tar -zcf ../control.tar.gz * --owner=0 --group=0
 cd ..
 rm -rf control
 
 cd data
-tar -zcf ../data.tar.gz *
+tar -zcf ../data.tar.gz * --owner=0 --group=0
 cd ..
 rm -rf data
 
-tar -zcf ../xray.ipk *
+tar -zcf ../xray.ipk * --owner=0 --group=0
 cd ..
 rm -rf tmp
