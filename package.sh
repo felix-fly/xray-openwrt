@@ -43,6 +43,7 @@ else
 fi
 rm -f xray.tar.gz
 
+chmod +x xray
 filesize=`ls -l xray | awk '{ print $5 }'`
 
 mkdir -p data/usr/bin
