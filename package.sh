@@ -1,5 +1,7 @@
 #!/bin/bash
 
+VERSION=latest
+
 platform="$1"
 all=",386,amd64,armv5,armv6,armv7,arm64,mips,mipsle,mips64,mips64le,ppc64,ppc64le,s390x,"
 result=$(echo $all | grep ",${platform},")
@@ -10,6 +12,10 @@ else
   echo "Unknown platform: $platform"
   exit
 fi
+
+read -p "Enter the xray version(Default: $VERSION):" ver
+
+version=${ver:-"$VERSION"}
 
 float=""
 if [[ $platform == "mips" || $platform == "mipsle" ]]
@@ -31,7 +37,7 @@ mkdir tmp
 cp -r package/* tmp
 cd tmp
 
-wget https://github.com/felix-fly/xray-openwrt/releases/latest/download/xray-linux-$platform.tar.gz -O xray.tar.gz
+wget https://github.com/felix-fly/xray-openwrt/releases/$version/download/xray-linux-$platform.tar.gz -O xray.tar.gz
 
 tar -xzvf xray.tar.gz
 if [[ $float == "float" ]]
@@ -49,8 +55,8 @@ filesize=`ls -l xray | awk '{ print $5 }'`
 mkdir -p data/usr/bin
 mv xray data/usr/bin
 
-sed -i.bak "s/==SIZE==/$filesize/g" ./control/control
-rm control/control.bak
+sed -i "s/==VERSION==/$version/g" ./control/control
+sed -i "s/==SIZE==/$filesize/g" ./control/control
 
 cd control
 tar -zcf ../control.tar.gz * --owner=0 --group=0
@@ -62,6 +68,6 @@ tar -zcf ../data.tar.gz * --owner=0 --group=0
 cd ..
 rm -rf data
 
-tar -zcf ../xray.ipk * --owner=0 --group=0
+tar -zcf ../xray-$version.ipk * --owner=0 --group=0
 cd ..
 rm -rf tmp

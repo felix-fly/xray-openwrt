@@ -1,5 +1,5 @@
 Package: xray
-Version: latest
+Version: ==VERSION==
 Depends: ca-bundle
 Source: feeds/packages/xray
 SourceName: xray
