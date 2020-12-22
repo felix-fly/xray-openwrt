@@ -1,0 +1,11 @@
+Package: xray
+Version: latest
+Depends: ca-bundle
+Source: feeds/packages/xray
+SourceName: xray
+License: GPL-3.0-or-later
+Section: net
+Maintainer: everyone <everyone@abc.com>
+Architecture: all
+Installed-Size: ==SIZE==
+Description: The xray client for openwrt.
