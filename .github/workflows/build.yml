@@ -30,14 +30,12 @@ jobs:
           # Do not use "--depth=1" due to tags
           git clone https://github.com/XTLS/Xray-core.git
           cd Xray-core
-          git checkout tags/v1.2.0
+          git checkout tags/v1.2.1
           cd ..
           wget https://raw.githubusercontent.com/felix-fly/xray-openwrt/master/build.sh
           chmod +x ./build.sh
+          ./build.sh android arm64
           ./build.sh darwin amd64
-          ./build.sh dragonfly amd64
-          ./build.sh freebsd 386
-          ./build.sh freebsd amd64
           ./build.sh linux 386
           ./build.sh linux amd64
           ./build.sh linux armv5
@@ -48,13 +46,6 @@ jobs:
           ./build.sh linux mipsle
           ./build.sh linux mips64
           ./build.sh linux mips64le
-          ./build.sh linux ppc64
-          ./build.sh linux ppc64le
-          ./build.sh linux s390x
-          ./build.sh openbsd 386
-          ./build.sh openbsd amd64
-          ./build.sh windows 386
-          ./build.sh windows amd64
       - name: Upload artifact
         uses: actions/upload-artifact@master
         with:
