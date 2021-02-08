@@ -6,8 +6,8 @@ Wants=network.target
 [Service]
 # This service runs as root. You may consider to run it as another user for security concerns.
 # By uncommenting the following two lines, this service will run as user xray/xray.
-User=xray
-# Group=xray
+# User=xray
+Group=www-data
 Type=simple
 PIDFile=/run/xray.pid
 ExecStart=/opt/xray/xray -config /opt/xray/config.json
