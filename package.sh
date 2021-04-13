@@ -41,7 +41,7 @@ if [[ $version == "latest" ]]
 then
   wget https://github.com/felix-fly/xray-openwrt/releases/latest/download/xray-linux-$platform.tar.gz -O xray.tar.gz
 else
-  wget https://github.com/felix-fly/xray-openwrt/releases/download/$version/xray-linux-$platform.tar.gz -O xray.tar.gz
+  wget https://github.com/felix-fly/xray-openwrt/releases/download/v$version/xray-linux-$platform.tar.gz -O xray.tar.gz
 fi
 
 tar -xzvf xray.tar.gz
