@@ -2,9 +2,8 @@ name: build
 
 on:
   push:
-    branches: [master]
-  #release:
-    #types: [created]
+    tags:
+      - v*
 
 jobs:
   build:
@@ -47,7 +46,9 @@ jobs:
           ./build.sh linux mips64
           ./build.sh linux mips64le
       - name: Upload artifact
-        uses: actions/upload-artifact@master
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          name: build
-          path: bin
+          repo_token: "${{ secrets.UPLOAD_KEY }}"
+          prerelease: false
+          files: |
+            bin/*.tar.gz
