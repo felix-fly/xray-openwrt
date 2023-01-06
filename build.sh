@@ -11,7 +11,6 @@ build_v2() {
   cd $BASE/Xray-core
   echo ">>> Compile xray ..."
   if [[ $GOARCH == "mips" || $GOARCH == "mipsle" ]];then
-    UPX=upx
     env CGO_ENABLED=0 go build -o $TMP/xray -trimpath -ldflags "-s -w -buildid=" ./main
     env CGO_ENABLED=0 GOMIPS=softfloat go build -o $TMP/xray_softfloat -trimpath -ldflags "-s -w -buildid=" ./main
   elif [[ $GOOS == "windows" ]];then
