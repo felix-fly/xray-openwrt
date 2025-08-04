@@ -1,0 +1,20 @@
+#!/bin/sh /etc/rc.common
+
+START=90
+STOP=10
+
+USE_PROCD=1
+PROG=/usr/bin/xray
+CONF=/etc/xray/config.json
+
+start_service() {
+  procd_open_instance
+  procd_set_param command $PROG -config=$CONF
+  procd_set_param respawn
+  procd_set_param file $CONF
+  procd_close_instance
+}
+
+stop_service() {
+  service_stop $PROG
+}
